@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Result</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body style="text-align:center; font-family:Arial; margin-top:30px;">
+
+    <h2>{{company}} Stock Prediction</h2>
+
+    <p><b>Current Price:</b> {{current}}</p>
+    <p><b>Predicted Price:</b> {{predicted}}</p>
+
+    <h3 style="color:{{color}};">{{status}}</h3>
+
+    <canvas id="myChart" width="700" height="350"></canvas>
+
+    <script>
+        const actual = {{ actual | tojson }};
+        const predicted = {{ predicted_list | tojson }};
+
+        const labels = Array.from({length: actual.length}, (_, i) => i+1);
+
+        const data = {
+            labels: labels,
+            datasets: [
+                {
+                    label: 'Actual Prices',
+                    data: actual,
+                    borderWidth: 2,
+                    fill: false
+                },
+                {
+                    label: 'Predicted Trend',
+                    data: predicted,
+                    borderWidth: 2,
+                    fill: false
+                }
+            ]
+        };
+
+        const config = {
+            type: 'line',
+            data: data,
+            options: {
+                responsive: true
+            }
+        };
+
+        new Chart(document.getElementById('myChart'), config);
+    </script>
+
+    <br><br>
+    <a href="/">⬅ Back</a>
+
+</body>
+</html>

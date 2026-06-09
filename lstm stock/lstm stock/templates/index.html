@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Stock Forecasting</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+<div class="container">
+    <h1>📊 Stock Market Price Forecasting</h1>
+    <form action="/predict" method="POST">
+        <label>Select Company:</label>
+        <select name="company" required>
+            {% for c in companies %}
+            <option value="{{ c }}">{{ c }}</option>
+            {% endfor %}
+        </select>
+
+        <label>Enter Date:</label>
+        <input type="date" name="date" required>
+
+        <label>Open Price:</label>
+        <input type="number" step="0.01" name="open" required>
+
+        <label>High Price:</label>
+        <input type="number" step="0.01" name="high" required>
+
+        <label>Low Price:</label>
+        <input type="number" step="0.01" name="low" required>
+
+        <label>Close Price:</label>
+        <input type="number" step="0.01" name="close" required>
+
+        <label>Volume:</label>
+        <input type="number" step="1" name="volume" required>
+
+        <button type="submit">Predict</button>
+    </form>
+</div>
+</body>
+</html>
